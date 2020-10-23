@@ -15,7 +15,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.detail.DetailCourseActivity"
-            android:label="@string/title_activity_detail_course"
+            android:label="@string/title"
             android:parentActivityName="com.example.academy.ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

@@ -1,5 +1,6 @@
 package com.example.academy.utils
 
+import android.util.Log
 import com.example.academy.data.CourseEntity
 import com.example.academy.data.ModuleEntity
 
