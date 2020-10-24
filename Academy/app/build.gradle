@@ -52,7 +52,11 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    //noinspection GradleDependency
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
 
     //architecture component
+    //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-viewmodel:$archLifecycleVersion"
 }
