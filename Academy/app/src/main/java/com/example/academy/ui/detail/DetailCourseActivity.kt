@@ -14,6 +14,7 @@ import com.example.academy.R
 import com.example.academy.data.CourseEntity
 import com.example.academy.ui.reader.CourseReaderActivity
 import com.example.academy.utils.DataDummy
+import com.example.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.content_detail_course.*
 
 class DetailCourseActivity : AppCompatActivity() {
@@ -26,9 +27,10 @@ class DetailCourseActivity : AppCompatActivity() {
 
         val adapter = DetailCourseAdapter()
 
+        val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            factory
         )[DetailCourseViewModel::class.java]
 
         val extras = intent.extras
