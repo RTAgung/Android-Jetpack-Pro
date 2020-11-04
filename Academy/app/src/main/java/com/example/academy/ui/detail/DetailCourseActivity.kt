@@ -2,9 +2,11 @@ package com.example.academy.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,9 +40,15 @@ class DetailCourseActivity : AppCompatActivity() {
             val courseId = extras.getString(EXTRA_COURSE)
             if (courseId != null) {
                 viewModel.setSelectedCourse(courseId)
-                val modules = viewModel.getModules()
-                adapter.setModules(modules)
-                populateCourse(viewModel.getCourse())
+
+                progress_bar.visibility = View.VISIBLE
+                viewModel.getModules().observe(this, Observer { modules ->
+                    progress_bar.visibility = View.GONE
+                    adapter.setModules(modules)
+                    adapter.notifyDataSetChanged()
+                })
+                viewModel.getCourse().observe(this, Observer { course -> populateCourse(course) })
+
             }
         }
 
