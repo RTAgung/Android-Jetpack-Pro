@@ -24,7 +24,7 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
         if (bundle != null) {
             val courseId = bundle.getString(EXTRA_COURSE_ID)
             if (courseId != null) {
-                viewModel.setSelectedCourse(courseId)
+                viewModel.setCourseId(courseId)
                 populateFragment()
             }
         }

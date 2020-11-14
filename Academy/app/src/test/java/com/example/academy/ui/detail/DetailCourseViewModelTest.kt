@@ -3,8 +3,8 @@ package com.example.academy.ui.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.data.source.AcademyRepository
 import com.example.academy.utils.DataDummy
 import org.junit.Test

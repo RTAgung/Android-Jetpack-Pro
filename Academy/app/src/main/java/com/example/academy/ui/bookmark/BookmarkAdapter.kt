@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.academy.R
-import com.example.academy.data.CourseEntity
+import com.example.academy.data.source.local.entity.CourseEntity
 import com.example.academy.ui.detail.DetailCourseActivity
 import kotlinx.android.synthetic.main.items_bookmark.view.*
 

@@ -2,22 +2,22 @@ package com.example.academy.ui.reader.list
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.ui.reader.CourseReaderActivity
 import com.example.academy.ui.reader.CourseReaderCallback
 import com.example.academy.ui.reader.CourseReaderViewModel
-import com.example.academy.utils.DataDummy
 import com.example.academy.viewmodel.ViewModelFactory
+import com.example.academy.vo.Status
 import kotlinx.android.synthetic.main.fragment_module_list.*
 
 
@@ -40,10 +40,20 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
         viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
 
-        progress_bar.visibility = View.VISIBLE
-        viewModel.getModules().observe(this, Observer { modules ->
-            progress_bar.visibility = View.GONE
-            populateRecyclerView(modules)
+        viewModel.modules.observe(this, { moduleEntities ->
+            if (moduleEntities != null) {
+                when (moduleEntities.status) {
+                    Status.LOADING -> progress_bar.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        progress_bar.visibility = View.GONE
+                        populateRecyclerView(moduleEntities.data as List<ModuleEntity>)
+                    }
+                    Status.ERROR -> {
+                        progress_bar.visibility = View.GONE
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
     }
 

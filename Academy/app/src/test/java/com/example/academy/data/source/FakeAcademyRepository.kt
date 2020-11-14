@@ -2,9 +2,9 @@ package com.example.academy.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.academy.data.ContentEntity
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.ContentEntity
+import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.data.source.remote.RemoteDataSource
 import com.example.academy.data.source.remote.response.ContentResponse
 import com.example.academy.data.source.remote.response.CourseResponse

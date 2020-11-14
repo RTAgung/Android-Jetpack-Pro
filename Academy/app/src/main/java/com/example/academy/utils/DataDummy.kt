@@ -1,8 +1,7 @@
 package com.example.academy.utils
 
-import android.util.Log
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.data.source.remote.response.ContentResponse
 import com.example.academy.data.source.remote.response.CourseResponse
 import com.example.academy.data.source.remote.response.ModuleResponse
