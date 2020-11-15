@@ -3,6 +3,8 @@ package com.example.mynoteapps.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynoteapps.Note
 import com.example.mynoteapps.R
 import com.example.mynoteapps.ViewModelFactory
+import com.example.mynoteapps.helper.SortUtils
 import com.example.mynoteapps.ui.insert.NoteAddUpdateActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         rv_notes.adapter = adapter
 
         mainViewModel = obtainViewModel(this@MainActivity)
-        mainViewModel.getAllNotes().observe(this, noteObserver)
+        mainViewModel.getAllNotes(SortUtils.NEWEST).observe(this, noteObserver)
 
         fab_add.setOnClickListener { view ->
             if (view.id == R.id.fab_add) {
@@ -43,6 +46,23 @@ class MainActivity : AppCompatActivity() {
         if (noteList != null) {
             adapter.submitList(noteList)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var sort = ""
+        when (item.getItemId()) {
+            R.id.action_newest -> sort = SortUtils.NEWEST
+            R.id.action_oldest -> sort = SortUtils.OLDEST
+            R.id.action_random -> sort = SortUtils.RANDOM
+        }
+        mainViewModel.getAllNotes(sort).observe(this, noteObserver)
+        item.setChecked(true)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
