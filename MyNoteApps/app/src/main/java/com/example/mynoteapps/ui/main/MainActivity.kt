@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynoteapps.Note
 import com.example.mynoteapps.R
@@ -14,14 +15,14 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var adapter: NoteAdapter
+    private lateinit var adapter: NotePagedListAdapter
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = NoteAdapter(this@MainActivity)
+        adapter = NotePagedListAdapter(this@MainActivity)
 
         rv_notes.layoutManager = LinearLayoutManager(this)
         rv_notes.setHasFixedSize(true)
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val noteObserver = Observer<List<Note>> { noteList ->
+    private val noteObserver = Observer<PagedList<Note>> { noteList ->
         if (noteList != null) {
-            adapter.setListNotes(noteList)
+            adapter.submitList(noteList)
         }
     }
 

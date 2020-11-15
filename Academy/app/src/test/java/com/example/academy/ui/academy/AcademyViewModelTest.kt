@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.academy.data.source.local.entity.CourseEntity
 import com.example.academy.data.source.AcademyRepository
 import com.example.academy.utils.DataDummy
+import com.example.academy.vo.Resource
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
@@ -30,7 +31,7 @@ class AcademyViewModelTest {
     private lateinit var academyRepository: AcademyRepository
 
     @Mock
-    private lateinit var observer: Observer<List<CourseEntity>>
+    private lateinit var observer: Observer<Resource<List<CourseEntity>>>
 
     @Before
     fun setUp() {
@@ -39,12 +40,12 @@ class AcademyViewModelTest {
 
     @Test
     fun getCourses() {
-        val dummyCourses = DataDummy.generateDummyCourses()
-        val courses = MutableLiveData<List<CourseEntity>>()
+        val dummyCourses = Resource.success(DataDummy.generateDummyCourses())
+        val courses = MutableLiveData<Resource<List<CourseEntity>>>()
         courses.value = dummyCourses
 
         `when`(academyRepository.getAllCourses()).thenReturn(courses)
-        val courseEntities = viewModel.getCourses().value
+        val courseEntities = viewModel.getCourses().value?.data
         verify<AcademyRepository>(academyRepository).getAllCourses()
         assertNotNull(courseEntities)
         assertEquals(5, courseEntities?.size)
